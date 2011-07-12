@@ -1,0 +1,10 @@
+{
+	entry = {
+		bundle = sbbsettings;
+		cell = PSLinkCell;
+		detail = "settingsPSListController";
+		icon = "";
+		isController = 1;
+		label = SBBrightness;
+	};
+}
