@@ -5,13 +5,13 @@
 #import <SpringBoard/SBBrightnessController.h>
 #import <SpringBoard/SBSearchController.h>
 #import <SpringBoard/SBAppSwitcherController.h>
+#import <QuartzCore/CALayer.h>
 
 #define PREFSPATH @"/var/mobile/Library/Preferences/com.fr0zensun.sbbrightness.plist"
 
 @class SBBrightnessController;
 @class SBUIController;
 UISlider *slider;
-
 
 %hook PSRootController
 %new(v@:)
@@ -33,13 +33,26 @@ slider.maximumValueImage = [UIImage imageWithContentsOfFile:@"/Applications/Pref
 slider.minimumValue = 0;
 slider.maximumValue = 1.0;
 slider.continuous = YES;
+[slider setUserInteractionEnabled:YES];
 
 slider.backgroundColor = [UIColor clearColor];
 [slider addTarget:self action:@selector(changeBrightness) forControlEvents:UIControlEventValueChanged];
 
 [[self window]addSubview:slider];
 
+[NSTimer scheduledTimerWithTimeInterval:.2 
+	target:self 
+	selector:@selector(checkBrightness) 
+	userInfo:nil 
+	repeats:YES];
 
+}
+%new(v@:@@)
+-(void)checkBrightness {
+
+NSString *filePath = @"/var/mobile/Library/Preferences/com.apple.springboard.plist";
+NSDictionary* plistDictionary = [[NSDictionary alloc] initWithContentsOfFile:filePath];
+slider.value = [[plistDictionary objectForKey:@"SBBacklightLevel2"]floatValue];
 
 }
 
