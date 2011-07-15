@@ -106,6 +106,35 @@ id controller = [$SBUIController sharedInstance];
 }
 
 %end
+%hook SBIconController
+- (void)openFolder:(id)arg1 animated:(BOOL)arg2 {
+[slider removeFromSuperview];
+
+%orig;
+}
+- (void)openFolder:(id)arg1 animated:(BOOL)arg2 fromSwitcher:(BOOL)arg3 {
+%orig;
+[slider removeFromSuperview];
+
+}
+- (void)closeFolderAnimated:(BOOL)arg1 {
+%orig;
+%class SBUIController;
+
+id controller = [$SBUIController sharedInstance];
+
+[[controller window]addSubview:slider];
+}
+- (void)closeFolderAnimated:(BOOL)arg1 toSwitcher:(BOOL)arg2 {
+%orig;
+%class SBUIController;
+
+id controller = [$SBUIController sharedInstance];
+
+[[controller window]addSubview:slider];
+}
+
+%end
 %hook SBAppSwitcherController
 -(void)viewWillAppear {
 
