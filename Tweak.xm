@@ -40,7 +40,7 @@ slider.backgroundColor = [UIColor clearColor];
 
 [[self window]addSubview:slider];
 
-[NSTimer scheduledTimerWithTimeInterval:.2 
+[NSTimer scheduledTimerWithTimeInterval:.3 
 	target:self 
 	selector:@selector(checkBrightness) 
 	userInfo:nil 
