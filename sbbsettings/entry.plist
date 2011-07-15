@@ -3,7 +3,7 @@
 		bundle = sbbsettings;
 		cell = PSLinkCell;
 		detail = "settingsPSListController";
-		icon = "";
+		icon = "icon.png";
 		isController = 1;
 		label = SBBrightness;
 	};
