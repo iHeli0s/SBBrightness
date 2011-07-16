@@ -45,9 +45,10 @@ slider.backgroundColor = [UIColor clearColor];
 	selector:@selector(checkBrightness) 
 	userInfo:nil 
 	repeats:YES];
+	%orig;
 
 }
-%new(v@:@@)
+%new(v@:)
 -(void)checkBrightness {
 
 NSString *filePath = @"/var/mobile/Library/Preferences/com.apple.springboard.plist";
@@ -56,7 +57,7 @@ slider.value = [[plistDictionary objectForKey:@"SBBacklightLevel2"]floatValue];
 
 }
 
-%new(v@:@@)
+%new(v@:)
 -(void)changeBrightness {
 %class SBBrightnessController;
 id controller = [$SBBrightnessController sharedBrightnessController];
