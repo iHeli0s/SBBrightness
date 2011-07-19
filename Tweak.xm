@@ -5,8 +5,9 @@
 #import <SpringBoard/SBBrightnessController.h>
 #import <SpringBoard/SBSearchController.h>
 #import <SpringBoard/SBAppSwitcherController.h>
+#import <SpringBoardUI/SpringBoardUI.h>
+#import <QuartzCore/QuartzCore2.h>
 #import <QuartzCore/CALayer.h>
-
 #define PREFSPATH @"/var/mobile/Library/Preferences/com.fr0zensun.sbbrightness.plist"
 
 @class SBBrightnessController;
@@ -22,11 +23,32 @@ UISlider *slider;
 }
 %end
 %hook SBUIController
+
 -(void)finishLaunching {
 
 slider = [[UISlider alloc]init];
-slider.frame = CGRectMake(10,380,300,30);
+if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 
+if([UIDevice currentDevice].orientation == UIDeviceOrientationPortrait) {
+slider.frame = CGRectMake(275,25,217,23);
+UIAlertView *alert = [[UIAlertView alloc]init];
+alert.message = @"UIInterfaceOrientationPortrait";
+[alert addButtonWithTitle:@"Close"];
+[alert show];
+}
+else {
+UIAlertView *alert = [[UIAlertView alloc]init];
+slider.frame = CGRectMake(337,25,330,23);
+
+alert.message = @"UIInterfaceOrientationLandscape";
+[alert addButtonWithTitle:@"Close"];
+[alert show];
+}
+
+}
+else {
+slider.frame = CGRectMake(10,377,300,23);
+}
 
 slider.minimumValueImage = [UIImage imageWithContentsOfFile:@"/Applications/Preferences.app/LessBright.png"];
 slider.maximumValueImage = [UIImage imageWithContentsOfFile:@"/Applications/Preferences.app/MoreBright.png"];
@@ -48,6 +70,24 @@ slider.backgroundColor = [UIColor clearColor];
 	%orig;
 
 }
+- (void)window:(id)arg1 willRotateToInterfaceOrientation:(int)arg2 duration:(double)arg3 {
+
+
+%orig;
+if(arg2 == 1 || arg2 == 2)
+{
+slider.frame = CGRectMake(275,25,217,23);
+
+
+}
+else if(arg2 == 3 || arg2 == 4) {
+slider.frame = CGRectMake(337,25,330,23);
+
+
+}
+
+}
+
 %new(v@:)
 -(void)checkBrightness {
 
@@ -155,4 +195,8 @@ id controller = [$SBUIController sharedInstance];
 
 
 %end
+%hook SBIconListPageControl
+- (id)initWithFrame:(CGRect)frame { [%orig release]; return nil; }
+%end
+
 
