@@ -6,8 +6,7 @@
 #import <SpringBoard/SBSearchController.h>
 #import <SpringBoard/SBAppSwitcherController.h>
 #import <SpringBoardUI/SpringBoardUI.h>
-#import <QuartzCore/QuartzCore2.h>
-#import <QuartzCore/CALayer.h>
+
 #define PREFSPATH @"/var/mobile/Library/Preferences/com.fr0zensun.sbbrightness.plist"
 
 @class SBBrightnessController;
