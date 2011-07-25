@@ -30,18 +30,12 @@ if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 
 if([UIDevice currentDevice].orientation == UIDeviceOrientationPortrait) {
 slider.frame = CGRectMake(275,25,217,23);
-UIAlertView *alert = [[UIAlertView alloc]init];
-alert.message = @"UIInterfaceOrientationPortrait";
-[alert addButtonWithTitle:@"Close"];
-[alert show];
+
 }
 else {
-UIAlertView *alert = [[UIAlertView alloc]init];
 slider.frame = CGRectMake(337,25,330,23);
 
-alert.message = @"UIInterfaceOrientationLandscape";
-[alert addButtonWithTitle:@"Close"];
-[alert show];
+
 }
 
 }
@@ -73,6 +67,8 @@ slider.backgroundColor = [UIColor clearColor];
 
 
 %orig;
+if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+
 if(arg2 == 1 || arg2 == 2)
 {
 slider.frame = CGRectMake(275,25,217,23);
@@ -84,6 +80,7 @@ slider.frame = CGRectMake(337,25,330,23);
 
 
 }
+}
 
 }
 
@@ -93,6 +90,7 @@ slider.frame = CGRectMake(337,25,330,23);
 NSString *filePath = @"/var/mobile/Library/Preferences/com.apple.springboard.plist";
 NSDictionary* plistDictionary = [[NSDictionary alloc] initWithContentsOfFile:filePath];
 slider.value = [[plistDictionary objectForKey:@"SBBacklightLevel2"]floatValue];
+[plistDictionary release];
 
 }
 
@@ -140,6 +138,7 @@ slider.value = arg1;
 id controller = [$SBUIController sharedInstance];
 
 [[controller window]addSubview:slider];
+[controller release];
 
 %orig;
 
@@ -164,6 +163,8 @@ id controller = [$SBUIController sharedInstance];
 id controller = [$SBUIController sharedInstance];
 
 [[controller window]addSubview:slider];
+[controller release];
+
 }
 - (void)closeFolderAnimated:(BOOL)arg1 toSwitcher:(BOOL)arg2 {
 %orig;
@@ -172,6 +173,8 @@ id controller = [$SBUIController sharedInstance];
 id controller = [$SBUIController sharedInstance];
 
 [[controller window]addSubview:slider];
+[controller release];
+
 }
 
 %end
@@ -188,6 +191,8 @@ id controller = [$SBUIController sharedInstance];
 id controller = [$SBUIController sharedInstance];
 
 [[controller window]addSubview:slider];
+[controller release];
+
 
 %orig;
 }
